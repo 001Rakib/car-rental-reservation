@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-this-alias */
 import { Schema, model } from "mongoose";
 import { TUser, UserModel } from "./user.interface";
+import bcrypt from "bcrypt";
+import config from "../../config";
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -14,6 +17,23 @@ const userSchema = new Schema<TUser, UserModel>(
     timestamps: true,
   }
 );
+
+//pre-save middleware
+//hash the password before saving into the database
+userSchema.pre("save", async function (next) {
+  const user = this;
+  //hashing password with bcrypt and save password into DB
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_round_salt)
+  );
+  next();
+});
+//set '' after saving password
+userSchema.post("save", function (doc, next) {
+  doc.password = "";
+  next();
+});
 
 userSchema.statics.isUserExistsId = async function (id: string) {
   return await User.findById(id);
