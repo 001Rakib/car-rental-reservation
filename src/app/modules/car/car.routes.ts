@@ -2,10 +2,12 @@ import { Router } from "express";
 import validateRequest from "../../middleware/validateRequest";
 import { carValidationSchema } from "./car.validation";
 import { carControllers } from "./car.controller";
+import auth from "../../middleware/auth";
 
 const router = Router();
 router.post(
   "/",
+  auth("admin"),
   validateRequest(carValidationSchema.createCarValidationSchema),
   carControllers.createCar
 );

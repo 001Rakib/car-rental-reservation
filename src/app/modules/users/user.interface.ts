@@ -1,4 +1,8 @@
 import { Model } from "mongoose";
+export const userRole = {
+  user: "user",
+  admin: "admin",
+} as const;
 
 export type TUser = {
   name: string;
@@ -19,3 +23,4 @@ export type TSignInUser = {
   email: string;
   password: string;
 };
+export type TUserRole = keyof typeof userRole;

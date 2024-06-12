@@ -39,7 +39,7 @@ const signInUser = async (payload: TSignInUser) => {
 
   return {
     data,
-    accessToken,
+    token: accessToken,
   };
 };
 
