@@ -16,8 +16,18 @@ const getSingleCarFromDB = async (id: string) => {
   return result;
 };
 
+const deleteCarFromDB = async (id: string) => {
+  const result = await Car.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    { new: true }
+  );
+  return result;
+};
+
 export const carServices = {
   createCarIntoDB,
   getAllCarFromDB,
   getSingleCarFromDB,
+  deleteCarFromDB,
 };
