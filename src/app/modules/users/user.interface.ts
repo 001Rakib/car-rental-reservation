@@ -9,5 +9,13 @@ export type TUser = {
   address: string;
 };
 export interface UserModel extends Model<TUser> {
-  isUserExistsId(id: string): Promise<TUser>;
+  isUserExistsByEmail(email: string): Promise<TUser>;
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string
+  ): Promise<boolean>;
 }
+export type TSignInUser = {
+  email: string;
+  password: string;
+};

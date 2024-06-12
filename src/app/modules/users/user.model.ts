@@ -9,7 +9,7 @@ const userSchema = new Schema<TUser, UserModel>(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     role: { type: String, required: true, enum: ["user", "admin"] },
-    password: { type: String, required: true },
+    password: { type: String, required: true, select: 0 },
     phone: { type: String, required: true },
     address: { type: String, required: true },
   },
@@ -35,8 +35,15 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
-userSchema.statics.isUserExistsId = async function (id: string) {
-  return await User.findById(id);
+userSchema.statics.isUserExistsByEmail = async function (email: string) {
+  return await User.findOne({ email: email }).select("+password");
+};
+
+userSchema.statics.isPasswordMatched = async function (
+  plainTextPassword: string,
+  hashedPassword: string
+) {
+  return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
 export const User = model<TUser, UserModel>("User", userSchema);
