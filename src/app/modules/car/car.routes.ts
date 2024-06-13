@@ -14,6 +14,7 @@ router.post(
 
 router.get("/", carControllers.getAllCar);
 router.get("/:id", carControllers.getSingleCar);
-router.delete("/:id", carControllers.deleteCar);
+router.put("/:id", auth("admin"), carControllers.updateCar);
+router.delete("/:id", auth("admin"), carControllers.deleteCar);
 
 export const carRoutes = router;
