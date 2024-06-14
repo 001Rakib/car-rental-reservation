@@ -4,7 +4,18 @@ import { TBooking } from "./booking.interface";
 import { Booking } from "./booking.model";
 import { Car } from "../car/car.model";
 
-const getAllBookings = async () => {
+const getAllBookings = async (query: Record<string, unknown>) => {
+  let date = "";
+  if (query?.date) {
+    date = query.date as string;
+  }
+
+  if (date) {
+    const result = await Booking.find({ date })
+      .populate("user")
+      .populate("carId");
+    return result;
+  }
   const result = await Booking.find().populate("user").populate("carId");
   return result;
 };
