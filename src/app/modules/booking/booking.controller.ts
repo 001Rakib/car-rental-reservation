@@ -30,6 +30,7 @@ const getMyBookings = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
 export const bookingControllers = {
   createBooking,
   getMyBookings,
