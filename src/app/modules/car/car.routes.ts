@@ -15,7 +15,12 @@ router.put("/return", auth("admin"), carControllers.returnCar);
 
 router.get("/", carControllers.getAllCar);
 router.get("/:id", carControllers.getSingleCar);
-router.put("/:id", auth("admin"), carControllers.updateCar);
+router.put(
+  "/:id",
+  auth("admin"),
+  validateRequest(carValidationSchema.updateCarValidationSchema),
+  carControllers.updateCar
+);
 router.delete("/:id", auth("admin"), carControllers.deleteCar);
 
 export const carRoutes = router;
