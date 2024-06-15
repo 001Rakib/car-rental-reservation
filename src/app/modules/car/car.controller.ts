@@ -38,7 +38,7 @@ const returnCar = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,
-    message: "Car booked successfully",
+    message: "Car returned successfully",
     data: result,
   });
 });

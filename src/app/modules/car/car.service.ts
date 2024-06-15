@@ -67,11 +67,25 @@ const returnCar = async (payload: TReturnCar) => {
 };
 
 const updateCarIntoDB = async (id: string, payload: Partial<TCar>) => {
+  //check if the car available in the database
+  const isCarExists = await Car.findById(id);
+
+  if (!isCarExists) {
+    throw new AppError(httpStatus.NOT_FOUND, "Car not found");
+  }
+
   const result = await Car.findByIdAndUpdate(id, payload, { new: true });
   return result;
 };
 
 const deleteCarFromDB = async (id: string) => {
+  //check if the car available in the database
+  const isCarExists = await Car.findById(id);
+
+  if (!isCarExists) {
+    throw new AppError(httpStatus.NOT_FOUND, "Car not found");
+  }
+
   const result = await Car.findByIdAndUpdate(
     id,
     { isDeleted: true },

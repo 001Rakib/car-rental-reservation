@@ -6,6 +6,12 @@ import { createToken } from "../auth/auth.utils";
 import config from "../../config";
 
 const signUpUserIntoDB = async (payload: TUser) => {
+  //check if the user is already registered
+  const isUserExists = await User.isUserExistsByEmail(payload.email);
+  if (isUserExists) {
+    throw new AppError(httpStatus.BAD_REQUEST, "User already registered!!");
+  }
+
   const result = await User.create(payload);
   return result;
 };
