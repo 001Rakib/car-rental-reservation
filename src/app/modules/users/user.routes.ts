@@ -12,6 +12,7 @@ router.post(
   userControllers.signUpUser
 );
 router.post("/signin", userControllers.signInUser);
+router.get("/user/:email", userControllers.getUser);
 router.post(
   "/refresh-token",
   validateRequest(authValidation.refreshTokenValidationSchema),

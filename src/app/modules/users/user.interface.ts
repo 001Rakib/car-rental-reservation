@@ -9,8 +9,8 @@ export type TUser = {
   email: string;
   role: "user" | "admin";
   password: string;
-  phone: string;
-  address: string;
+  address?: string;
+  phone?: string;
 };
 export interface UserModel extends Model<TUser> {
   isUserExistsByEmail(email: string): Promise<TUser>;

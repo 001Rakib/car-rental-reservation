@@ -15,6 +15,10 @@ const carSchema = new Schema<TCar>(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       enum: ["available", "unavailable"],

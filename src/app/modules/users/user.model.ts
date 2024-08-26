@@ -8,10 +8,15 @@ const userSchema = new Schema<TUser, UserModel>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    role: { type: String, required: true, enum: ["user", "admin"] },
+    role: {
+      type: String,
+      required: true,
+      enum: ["user", "admin"],
+      default: "user",
+    },
     password: { type: String, required: true, select: 0 },
-    phone: { type: String, required: true },
-    address: { type: String, required: true },
+    address: { type: String },
+    phone: { type: Number },
   },
   {
     timestamps: true,

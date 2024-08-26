@@ -16,7 +16,7 @@ const signUpUser = catchAsync(async (req, res) => {
 const signInUser = catchAsync(async (req, res) => {
   const result = await userServices.signInUser(req.body);
 
-  const { refreshToken, token, data } = result;
+  const { refreshToken, token } = result;
   res.cookie("refreshToken", refreshToken, {
     secure: config.node_env === "production",
     httpOnly: true,
@@ -26,9 +26,22 @@ const signInUser = catchAsync(async (req, res) => {
     success: true,
     statusCode: httpStatus.OK,
     message: "User logged in successfully",
-    data: { data, token },
+    data: { token },
   });
 });
+
+const getUser = catchAsync(async (req, res) => {
+  const { email } = req.params;
+
+  const result = await userServices.getUserFromDB(email);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User retrieved successfully",
+    data: result,
+  });
+});
+
 const refreshToken = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
 
@@ -45,4 +58,5 @@ export const userControllers = {
   signUpUser,
   signInUser,
   refreshToken,
+  getUser,
 };

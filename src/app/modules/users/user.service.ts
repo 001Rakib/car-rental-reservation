@@ -30,7 +30,7 @@ const signInUser = async (payload: TSignInUser) => {
     throw new AppError(httpStatus.FORBIDDEN, "Wrong Password");
   }
 
-  const data = await User.findOne({ email: payload.email });
+  await User.findOne({ email: payload.email });
 
   //create token and send to the client
   const jwtPayload = {
@@ -50,10 +50,14 @@ const signInUser = async (payload: TSignInUser) => {
   );
 
   return {
-    data,
     token: accessToken,
     refreshToken,
   };
+};
+
+const getUserFromDB = async (email: string) => {
+  const result = await User.findOne({ email: email });
+  return result;
 };
 
 const refreshToken = async (token: string) => {
@@ -92,4 +96,5 @@ export const userServices = {
   signUpUserIntoDB,
   signInUser,
   refreshToken,
+  getUserFromDB,
 };
