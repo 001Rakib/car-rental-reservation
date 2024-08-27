@@ -41,6 +41,15 @@ const getUser = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAllUser = catchAsync(async (req, res) => {
+  const result = await userServices.getAllUserFromDB();
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "All User retrieved successfully",
+    data: result,
+  });
+});
 
 const refreshToken = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
@@ -59,4 +68,5 @@ export const userControllers = {
   signInUser,
   refreshToken,
   getUser,
+  getAllUser,
 };

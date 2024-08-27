@@ -15,6 +15,10 @@ const carSchema = new Schema<TCar>(
       type: String,
       required: true,
     },
+    category: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
       required: true,
@@ -23,10 +27,6 @@ const carSchema = new Schema<TCar>(
       type: String,
       enum: ["available", "unavailable"],
       default: "available",
-    },
-    isElectric: {
-      type: Boolean,
-      required: true,
     },
     features: {
       type: [String],

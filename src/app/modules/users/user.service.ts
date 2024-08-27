@@ -55,6 +55,11 @@ const signInUser = async (payload: TSignInUser) => {
   };
 };
 
+const getAllUserFromDB = async () => {
+  const result = await User.find();
+  return result;
+};
+
 const getUserFromDB = async (email: string) => {
   const result = await User.findOne({ email: email });
   return result;
@@ -97,4 +102,5 @@ export const userServices = {
   signInUser,
   refreshToken,
   getUserFromDB,
+  getAllUserFromDB,
 };

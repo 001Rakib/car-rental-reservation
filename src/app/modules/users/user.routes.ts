@@ -3,6 +3,7 @@ import validateRequest from "../../middleware/validateRequest";
 import { userValidationSchema } from "./user.validation";
 import { userControllers } from "./user.controllers";
 import { authValidation } from "../auth/auth.validation";
+import auth from "../../middleware/auth";
 
 const router = Router();
 
@@ -13,6 +14,7 @@ router.post(
 );
 router.post("/signin", userControllers.signInUser);
 router.get("/user/:email", userControllers.getUser);
+router.get("/user", auth("admin"), userControllers.getAllUser);
 router.post(
   "/refresh-token",
   validateRequest(authValidation.refreshTokenValidationSchema),
