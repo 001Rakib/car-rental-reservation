@@ -48,9 +48,15 @@ const getMyBookings = async (userInfo: JwtPayload) => {
 
   return result;
 };
+const getMySingleBooking = async (id: string) => {
+  const result = await Booking.findById(id).populate("user").populate("carId");
+
+  return result;
+};
 
 export const bookingServices = {
   createBookingIntoDB,
   getMyBookings,
   getAllBookings,
+  getMySingleBooking,
 };

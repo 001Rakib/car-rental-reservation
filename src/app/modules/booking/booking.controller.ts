@@ -30,9 +30,19 @@ const getMyBookings = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMySingleBooking = catchAsync(async (req, res) => {
+  const result = await bookingServices.getMySingleBooking(req.params.id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "My Booking retrieved successfully",
+    data: result,
+  });
+});
 
 export const bookingControllers = {
   createBooking,
   getMyBookings,
   getAllBookings,
+  getMySingleBooking,
 };

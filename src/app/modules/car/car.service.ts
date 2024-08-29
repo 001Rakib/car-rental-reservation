@@ -74,7 +74,10 @@ const updateCarIntoDB = async (id: string, payload: Partial<TCar>) => {
     throw new AppError(httpStatus.NOT_FOUND, "Car not found");
   }
 
-  const result = await Car.findByIdAndUpdate(id, payload, { new: true });
+  const result = await Car.findByIdAndUpdate(id, payload, {
+    new: true,
+    upsert: true,
+  });
   return result;
 };
 

@@ -7,6 +7,9 @@ export type TBooking = {
   startTime: string;
   endTime: string;
   totalCost: number;
+  nid: string;
+  drivingLicense: string;
+  payment: "pending" | "paid";
 };
 export type TReturnCar = {
   bookingId: Types.ObjectId;

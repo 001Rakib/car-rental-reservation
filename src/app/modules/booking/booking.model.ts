@@ -5,6 +5,8 @@ const bookingSchema = new Schema<TBooking>(
   {
     date: { type: String, required: true },
     startTime: { type: String, required: true },
+    drivingLicense: { type: String, required: true },
+    nid: { type: String, required: true },
     endTime: { type: String, default: null },
     user: {
       type: Schema.Types.ObjectId,
@@ -19,6 +21,11 @@ const bookingSchema = new Schema<TBooking>(
     totalCost: {
       type: Number,
       default: 0,
+    },
+    payment: {
+      type: String,
+      enum: ["pending", "paid"],
+      default: "pending",
     },
   },
   {
