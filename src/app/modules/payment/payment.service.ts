@@ -24,11 +24,11 @@ const createPaymentIntoDB = async (payload: TPayment) => {
   };
 
   const paymentResponse = await initiatePayment(paymentData);
-  console.log(paymentResponse);
-  const result = (
-    await (await Payment.create(payload)).populate("carId")
-  ).populate("bookingId");
-  return result;
+  (await (await Payment.create(payload)).populate("carId")).populate(
+    "bookingId"
+  );
+
+  return paymentResponse;
 };
 export const paymentService = {
   createPaymentIntoDB,
