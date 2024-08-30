@@ -14,7 +14,10 @@ const createPayment = catchAsync(async (req, res) => {
   });
 });
 const paymentConfirmation = catchAsync(async (req, res) => {
-  const confirmationFile = join(__dirname, "./confirmation.html");
+  const confirmationFile = join(
+    __dirname,
+    "../../../../public/confirmation.html"
+  );
   const template = readFileSync(confirmationFile, "utf-8");
 
   res.send(template);
