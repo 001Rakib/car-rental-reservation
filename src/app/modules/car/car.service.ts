@@ -11,8 +11,29 @@ const createCarIntoDB = async (payload: TCar) => {
   return result;
 };
 
-const getAllCarFromDB = async () => {
-  const result = await Car.find();
+const getAllCarFromDB = async (query: Record<string, unknown>) => {
+  // const queryObj = { ...query };
+
+  //search product
+  let searchCar = "";
+  const carSearchableFields = ["name", "description", "category", "features"];
+  if (query.searchCar) {
+    searchCar = query?.searchCar as string;
+  }
+
+  const searchQuery = Car.find({
+    $or: carSearchableFields.map((field) => ({
+      [field]: { $regex: searchCar, $options: "i" },
+    })),
+  });
+
+  //filtering
+  // const excludeFields = ["searchCar", "sort"];
+  // excludeFields.forEach((elem) => delete queryObj[elem]);
+
+  // const filterQuery = searchQuery.find(queryObj);
+
+  const result = await searchQuery;
   return result;
 };
 

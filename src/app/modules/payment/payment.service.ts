@@ -24,9 +24,7 @@ const createPaymentIntoDB = async (payload: TPayment) => {
   };
 
   const paymentResponse = await initiatePayment(paymentData);
-  (await (await Payment.create(payload)).populate("carId")).populate(
-    "bookingId"
-  );
+  await Payment.create(payload);
 
   return paymentResponse;
 };
